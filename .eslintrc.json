@@ -1,0 +1,23 @@
+{
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended", // Adding TypeScript support
+    "prettier"
+  ],
+  "env": {
+    "es2021": true,
+    "node": true,
+    "jest": true
+  },
+  "plugins": [
+    "prettier",
+    "@typescript-eslint" // Adding TypeScript support
+  ],
+  "parser": "@typescript-eslint/parser", // Adding TypeScript support
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module",
+    "project": ["./tsconfig.json"] // Ensuring TypeScript settings are respected -> adding the tsconig file path
+  },
+  "rules": {}
+}
