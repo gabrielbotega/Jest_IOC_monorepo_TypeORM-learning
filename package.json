@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "prepare": "husky",
-    "start:dev": "nodemon --watch src/ --exec npx ts-node src/index.ts -e ts",
+    "start:dev": "nodemon --watch src/ --exec npx ts-node -r tsconfig-paths/register src/index.ts -e ts",
     "test": "jest --passWithNoTests",
     "test:watch": "npm run test --watch",
     "test:staged": "npm run test --findRelatedTests"
@@ -20,6 +20,8 @@
     "nodemon": "^3.1.4",
     "ts-jest": "^29.2.2",
     "ts-node": "^10.9.2",
+    "tsc-alias": "^1.8.10",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "^5.5.3"
   }
 }
