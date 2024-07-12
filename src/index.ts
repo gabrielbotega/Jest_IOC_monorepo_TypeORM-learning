@@ -1,1 +1,5 @@
-console.log("Hello World! Goiaba");
+export class Person {
+  public myName(): void {
+    console.log("Felipe!");
+  }
+}
