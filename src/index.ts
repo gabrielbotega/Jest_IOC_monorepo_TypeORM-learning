@@ -1,5 +1,5 @@
 export class Person {
-  public myName(): void {
-    console.log("Felipe!");
+  public myName(): string {
+    return "Felipe";
   }
 }
