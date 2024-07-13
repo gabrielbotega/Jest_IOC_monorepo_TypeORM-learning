@@ -1,6 +1,6 @@
 import "reflect-metadata";
 import { DataSource } from "typeorm";
-// import { User } from "./models/User";
+import { User } from "./models/User";
 
 export const AppDataSource = new DataSource({
   type: "postgres",
@@ -11,8 +11,8 @@ export const AppDataSource = new DataSource({
   database: "Jest",
   synchronize: false,
   logging: false,
-  entities: ["@/models/**/*.ts"],
-  migrations: ["@/migrations/**/*.ts"],
+  entities: [User],
+  migrations: ["src/database/migrations/**/*.ts"],
   subscribers: [],
   uuidExtension: "uuid-ossp",
 });
