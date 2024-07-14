@@ -9,7 +9,7 @@ import {
 @Entity()
 export class User {
   @PrimaryGeneratedColumn("uuid")
-  id: number;
+  id?: number;
 
   @Column("varchar", { length: 100 })
   firstName: string;
@@ -26,8 +26,7 @@ export class User {
   @CreateDateColumn({ name: "created_at" })
   createdAt?: Date;
 
-  constructor(id: number, firstName: string, lastName: string, age: number) {
-    this.id = id;
+  constructor(firstName: string, lastName: string, age: number) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.age = age;
