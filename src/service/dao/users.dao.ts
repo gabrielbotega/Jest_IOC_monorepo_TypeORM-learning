@@ -12,4 +12,23 @@ export class UserDao {
 
     return allUsers;
   }
+
+  public async createUser(user: IUser): Promise<IUser> {
+    const createdUserResult = await AppDataSource.createQueryBuilder()
+      .insert()
+      .into(User)
+      .values([
+        { firstName: user.firstName, lastName: user.lastName, age: user.age },
+      ])
+      .execute();
+
+    const createdUserId = createdUserResult.identifiers[0].id;
+
+    const createdUser = await AppDataSource.getRepository(User)
+      .createQueryBuilder("users")
+      .where("users.id = :id", { id: createdUserId })
+      .getOne();
+
+    return createdUser;
+  }
 }

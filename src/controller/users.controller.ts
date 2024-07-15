@@ -1,14 +1,17 @@
 import { UserService } from "@/service/v1/users.service";
 import { inject } from "inversify";
-import injectionTokensConstants from "@/constants/injection.tokens.constants";
+import TYPES from "@/constants/symbols.constants";
 import { Request, Response } from "express";
-import { controller, httpGet } from "inversify-express-utils";
+import { controller, httpGet, httpPost } from "inversify-express-utils";
+import { UserDto } from "@/models/dto/user.dto";
 
 @controller("/users")
 export default class UserController {
   constructor(
-    @inject(injectionTokensConstants.v1.Services.userService)
-    private readonly userService: UserService
+    @inject(TYPES.v1.Services.userService)
+    private readonly userService: UserService,
+    @inject(TYPES.v1.Dto.userDto)
+    private readonly userDto: UserDto
   ) {}
 
   @httpGet("/getall")
@@ -16,8 +19,22 @@ export default class UserController {
     try {
       const users = await this.userService.getAllUsers();
       res.json(users);
-    } catch (err) {
-      res.status(500).json({ err: err.message });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  }
+
+  @httpPost("/create")
+  public async createUser(req: Request, res: Response): Promise<void> {
+    try {
+      this.userDto.firstName = req.body.firstName;
+      this.userDto.lastName = req.body.lastName;
+      this.userDto.age = req.body.age;
+
+      const createdUser = await this.userService.createUser(this.userDto);
+      res.json(createdUser);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
     }
   }
 }
