@@ -1,8 +1,14 @@
 import express from "express";
-import routes from "@/routes";
+import { InversifyExpressServer } from "inversify-express-utils";
+import { myContainer } from "./inversify.config";
+import "./controller/users.controller"; // Import the controller
 
-const app = express();
-app.use(express.json());
-app.use(routes);
+const server = new InversifyExpressServer(myContainer);
+
+server.setConfig((app) => {
+  app.use(express.json());
+});
+
+const app = server.build();
 
 export default app;

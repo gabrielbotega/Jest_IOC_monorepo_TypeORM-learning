@@ -1,33 +1,23 @@
 import { UserService } from "@/service/v1/users.service";
-import { inject, injectable } from "inversify";
+import { inject } from "inversify";
 import injectionTokensConstants from "@/constants/injection.tokens.constants";
-import { BaseControler } from "./base.controller";
-import { IUser } from "@/models/users.moldes";
 import { Request, Response } from "express";
+import { controller, httpGet } from "inversify-express-utils";
 
-@injectable()
-export default class UserController extends BaseControler {
-  // private _userService: UserService;
-
+@controller("/users")
+export default class UserController {
   constructor(
     @inject(injectionTokensConstants.v1.Services.userService)
     private readonly userService: UserService
-  ) {
-    super();
-    // this._userService = userService;
-  }
+  ) {}
 
-  public get basePath(): string {
-    return "/users";
-  }
-
-  public getRoutes(): void {
-    this.router.get(`${this.basePath}/`, (req: Request, res: Response) =>
-      this.getUsers(req, res)
-    );
-  }
-
-  private async getUsers(req: Request, res: Response): Promise<Array<IUser>> {
-    return this.userService.getAllUsers();
+  @httpGet("/getall")
+  public async getUsers(req: Request, res: Response): Promise<void> {
+    try {
+      const users = await this.userService.getAllUsers();
+      res.json(users);
+    } catch (err) {
+      res.status(500).json({ err: err.message });
+    }
   }
 }
