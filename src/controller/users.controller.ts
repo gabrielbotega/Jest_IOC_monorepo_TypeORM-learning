@@ -21,3 +21,13 @@ export default class UserController extends BaseControler {
     return "/users";
   }
 
+  public getRoutes(): void {
+    this.router.get(`${this.basePath}/`, (req: Request, res: Response) =>
+      this.getUsers(req, res)
+    );
+  }
+
+  private async getUsers(req: Request, res: Response): Promise<Array<IUser>> {
+    return this.userService.getAllUsers();
+  }
+}
