@@ -15,5 +15,8 @@ export default {
     Dto: {
       userDto: Symbol("userDto"),
     },
+    Adapters: {
+      UserBasicInfoTransformation: Symbol("UserBasicInfoTransformation"),
+    },
   },
 };
