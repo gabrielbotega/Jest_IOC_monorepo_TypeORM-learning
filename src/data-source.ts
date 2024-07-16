@@ -10,7 +10,7 @@ export const AppDataSource = new DataSource({
   database: "Jest",
   synchronize: false,
   logging: false,
-  entities: ["src/models/entities/*.ts"],
+  entities: ["src/database/entities/*.ts"],
   migrations: ["src/database/migrations/*.ts"],
   subscribers: [],
   uuidExtension: "uuid-ossp",
