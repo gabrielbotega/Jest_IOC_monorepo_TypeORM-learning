@@ -1,4 +1,4 @@
-import { IUser } from "@/models/users.moldes";
+import { IUser } from "@trainingjest/users/models/users.moldes";
 import { injectable } from "inversify/lib/annotation/injectable";
 
 @injectable()

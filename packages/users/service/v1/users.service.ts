@@ -1,7 +1,7 @@
-import { UserDao } from "@/database/dao/users.dao";
+import { UserDao } from "@trainingjest/users/database/dao/users.dao";
 import { inject, injectable } from "inversify";
-import TYPES from "@/constants/symbols.constants";
-import { IUser } from "@/models/users.moldes";
+import TYPES from "@trainingjest/users/constants/symbols.constants";
+import { IUser } from "@trainingjest/users/models/users.moldes";
 import { UserBasicInfoTransformation } from "../adapters/user-dto-to-usershow";
 
 @injectable()
@@ -10,7 +10,7 @@ export class UserService {
     @inject(TYPES.v1.Dao.userDao)
     private readonly userDao: UserDao,
     @inject(TYPES.v1.Adapters.UserBasicInfoTransformation)
-    private readonly userBasicInfoTransform: UserBasicInfoTransformation,
+    private readonly userBasicInfoTransform: UserBasicInfoTransformation
   ) {}
 
   public async getAllUsers(): Promise<Array<IUser>> {

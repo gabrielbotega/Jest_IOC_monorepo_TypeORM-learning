@@ -1,6 +1,6 @@
-import { AppDataSource } from "@/data-source";
-import { User } from "@/database/entities/User";
-import { IUser } from "@/models/users.moldes";
+import { AppDataSource } from "@trainingjest/users/data-source";
+import { User } from "@trainingjest/users/database/entities/User";
+import { IUser } from "@trainingjest/users/models/users.moldes";
 import { injectable } from "inversify";
 
 @injectable()

@@ -1,4 +1,4 @@
-import { UserService } from "@/service/v1/users.service";
+import { UserService } from "../service/v1/users.service";
 import { inject } from "inversify";
 import TYPES from "@/constants/symbols.constants";
 import { Request, Response } from "express";
@@ -11,7 +11,7 @@ export default class UserController {
     @inject(TYPES.v1.Services.userService)
     private readonly userService: UserService,
     @inject(TYPES.v1.Dto.userDto)
-    private readonly userDto: UserDto,
+    private readonly userDto: UserDto
   ) {}
 
   @httpGet("/getall")
@@ -32,7 +32,7 @@ export default class UserController {
   public async getUserGreetings(req: Request, res: Response): Promise<void> {
     try {
       const userGreeting = await this.userService.getUserGreetings(
-        req.params.id,
+        req.params.id
       );
 
       res.status(200).json(userGreeting);

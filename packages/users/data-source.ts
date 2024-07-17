@@ -10,8 +10,8 @@ export const AppDataSource = new DataSource({
   database: process.env.DB_DATABASE,
   synchronize: false,
   logging: false,
-  entities: ["src/database/entities/*.ts"],
-  migrations: ["src/database/migrations/*.ts"],
+  entities: ["database/entities/*.ts"],
+  migrations: ["database/migrations/*.ts"],
   subscribers: [],
   uuidExtension: "uuid-ossp",
 });
