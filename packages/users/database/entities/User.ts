@@ -1,3 +1,4 @@
+import { MaxLength, IsInt, IsEmail, IsStrongPassword } from "class-validator";
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -11,12 +12,15 @@ export class User {
   @PrimaryGeneratedColumn("uuid")
   id?: string;
 
+  @MaxLength(100)
   @Column("varchar", { length: 100 })
   firstName: string;
 
+  @MaxLength(100)
   @Column("varchar", { length: 100 })
   lastName: string;
 
+  @IsInt()
   @Column("integer")
   age: number;
 
