@@ -48,4 +48,16 @@ export class UserDao {
 
     return createdUser;
   }
+  public async checkExistingEmail(emailAttempt: string): Promise<boolean> {
+    const user = await AppDataSource.getRepository(User)
+      .createQueryBuilder("users")
+      .where({ email: emailAttempt })
+      .getOne();
+
+    if (!user) {
+      return false;
+    }
+
+    return true;
+  }
 }

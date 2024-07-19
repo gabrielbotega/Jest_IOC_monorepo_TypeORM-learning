@@ -64,6 +64,18 @@ export default class UserController {
         return;
       }
 
+      const existingEmail = await this.userService.checkExistingEmail(
+        userDto.email
+      );
+
+      if (existingEmail) {
+        res.status(409).json({
+          status: ResponseStatus.Fail,
+          message: "Email already exists",
+        });
+        return;
+      }
+
     } catch (error) {
       res.status(500).json({ error: error.message });
     }

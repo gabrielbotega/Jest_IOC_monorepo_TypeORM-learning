@@ -27,6 +27,11 @@ export class UserService {
   public async createUser(req: IUser): Promise<IUser> {
     return await this.userDao.createUser(req);
   }
+
+  public async checkExistingEmail(emailAttempt: string): Promise<boolean> {
+    return await this.userDao.checkExistingEmail(emailAttempt);
+  }
+
   public async validateUser(userAttempt: UserDto): Promise<IResponse<IUser>> {
     const errors = await validate(userAttempt);
 
