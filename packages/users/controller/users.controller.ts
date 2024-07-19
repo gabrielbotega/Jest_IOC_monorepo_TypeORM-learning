@@ -5,6 +5,8 @@ import { Request, Response } from "express";
 import { controller, httpGet, httpPost } from "inversify-express-utils";
 import { UserDtoFactory } from "@trainingjest/users/database/dto/user.dto";
 
+import { ResponseStatus } from "../models/response.model";
+
 @controller("/users")
 export default class UserController {
   constructor(
@@ -17,17 +19,20 @@ export default class UserController {
   @httpGet("/getall")
   public async getUsers(req: Request, res: Response): Promise<void> {
     try {
-      const users = await this.userService.getAllUsers();
-
-      res.json(users);
+      const response = await this.userService.getAllUsers();
+      if (response.status === ResponseStatus.Fail) {
+        res.status(404).json(response);
+      } else {
+        res.status(200).json(response);
+      }
     } catch (error) {
-      res.status(500).json({ error: error });
+      res.status(500).json({
+        status: ResponseStatus.Fail,
+        message: error.message,
+      });
     }
   }
 
-  /*
-   * Here we're supposing the user is logged in and we'll retrieve the id by the session
-   */
   @httpGet("/greetings/:id")
   public async getUserGreetings(req: Request, res: Response): Promise<void> {
     try {
@@ -37,7 +42,10 @@ export default class UserController {
 
       res.status(200).json(userGreeting);
     } catch (error) {
-      console.log(error);
+      res.status(500).json({
+        status: ResponseStatus.Fail,
+        message: error.message,
+      });
     }
   }
 
@@ -76,8 +84,16 @@ export default class UserController {
         return;
       }
 
+      const createdUser = await this.userService.createUser(userDto);
+      res.status(201).json({
+        status: ResponseStatus.Success,
+        data: createdUser,
+      });
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      res.status(500).json({
+        status: ResponseStatus.Fail,
+        message: error.message,
+      });
     }
   }
 }

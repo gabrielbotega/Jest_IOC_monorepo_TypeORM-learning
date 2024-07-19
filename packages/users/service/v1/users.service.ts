@@ -4,6 +4,11 @@ import TYPES from "@trainingjest/users/constants/symbols.constants";
 import { IUser } from "@trainingjest/users/models/users.moldes";
 import { UserBasicInfoTransformation } from "../adapters/user-dto-to-usershow";
 import { validate } from "class-validator";
+import {
+  IResponse,
+  ResponseStatus,
+} from "@trainingjest/users/models/response.model";
+import { UserDto } from "@trainingjest/users/database/dto/user.dto";
 
 @injectable()
 export class UserService {
@@ -14,8 +19,19 @@ export class UserService {
     private readonly userBasicInfoTransform: UserBasicInfoTransformation
   ) {}
 
-  public async getAllUsers(): Promise<Array<IUser>> {
-    return await this.userDao.getAllUsers();
+  public async getAllUsers(): Promise<IResponse<Array<IUser>>> {
+    const allUsers = await this.userDao.getAllUsers();
+
+    if (allUsers.length === 0) {
+      return {
+        status: ResponseStatus.Fail,
+        message: "No users were found",
+      };
+    }
+
+    return {
+      data: allUsers,
+    };
   }
 
   public async getUserGreetings(id: string): Promise<string> {
