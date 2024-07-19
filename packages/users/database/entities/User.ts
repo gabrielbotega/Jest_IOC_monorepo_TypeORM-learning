@@ -1,4 +1,4 @@
-import { MaxLength, IsInt, IsEmail, IsStrongPassword } from "class-validator";
+import { MaxLength, IsInt, IsEmail } from "class-validator";
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -23,6 +23,10 @@ export class User {
   @IsInt()
   @Column("integer")
   age: number;
+
+  @IsEmail()
+  @Column()
+  email: string;
 
   @UpdateDateColumn({ name: "updated_at" })
   updatedAt?: Date;
