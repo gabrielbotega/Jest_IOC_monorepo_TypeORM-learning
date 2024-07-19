@@ -57,8 +57,13 @@ export default class UserController {
         email,
       });
 
-      const createdUser = await this.userService.createUser(this.userDto);
-      res.json(createdUser);
+      const validatedUser = await this.userService.validateUser(userDto);
+
+      if (validatedUser.status === ResponseStatus.Fail) {
+        res.status(400).json({ message: validatedUser.message });
+        return;
+      }
+
     } catch (error) {
       res.status(500).json({ error: error.message });
     }

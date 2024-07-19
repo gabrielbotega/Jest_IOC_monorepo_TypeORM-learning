@@ -3,6 +3,7 @@ import { inject, injectable } from "inversify";
 import TYPES from "@trainingjest/users/constants/symbols.constants";
 import { IUser } from "@trainingjest/users/models/users.moldes";
 import { UserBasicInfoTransformation } from "../adapters/user-dto-to-usershow";
+import { validate } from "class-validator";
 
 @injectable()
 export class UserService {
@@ -25,5 +26,18 @@ export class UserService {
 
   public async createUser(req: IUser): Promise<IUser> {
     return await this.userDao.createUser(req);
+  }
+  public async validateUser(userAttempt: UserDto): Promise<IResponse<IUser>> {
+    const errors = await validate(userAttempt);
+
+    if (errors.length > 0) {
+      return {
+        status: ResponseStatus.Fail,
+        message: errors,
+      };
+    }
+    return {
+      status: ResponseStatus.Success,
+    };
   }
 }
