@@ -12,5 +12,8 @@
     "test:push": "npm run test --coverage",
     "start": "ts-node packages/users/server.ts",
     "typeorm": "typeorm-ts-node-commonjs"
+  },
+  "dependencies": {
+    "path": "^0.12.7"
   }
 }

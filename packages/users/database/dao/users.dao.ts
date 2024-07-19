@@ -13,7 +13,7 @@ export class UserDao {
 
       return allUsers;
     } catch (error) {
-      console.log(error);
+      return error;
     }
   }
 
@@ -34,9 +34,7 @@ export class UserDao {
     const createdUserResult = await AppDataSource.createQueryBuilder()
       .insert()
       .into(User)
-      .values([
-        { firstName: user.firstName, lastName: user.lastName, age: user.age },
-      ])
+      .values([{ ...user }])
       .execute();
 
     const createdUserId = createdUserResult.identifiers[0].id;
@@ -48,6 +46,7 @@ export class UserDao {
 
     return createdUser;
   }
+
   public async checkExistingEmail(emailAttempt: string): Promise<boolean> {
     const user = await AppDataSource.getRepository(User)
       .createQueryBuilder("users")

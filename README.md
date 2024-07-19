@@ -15,4 +15,4 @@ I've also added a hook with Husky (only added pre-commit and pre-push hooks)
 
 ---
 
-I'm also still implementing the monorepo scheme and tests.
+I'm also still implementing the monorepo (DONE) scheme and tests.

@@ -1,5 +1,9 @@
 import "reflect-metadata";
 import { DataSource } from "typeorm";
+import * as dotenv from "dotenv";
+import { join } from "path";
+
+dotenv.config();
 
 export const AppDataSource = new DataSource({
   type: "postgres",
@@ -10,8 +14,8 @@ export const AppDataSource = new DataSource({
   database: process.env.DB_DATABASE,
   synchronize: false,
   logging: false,
-  entities: ["database/entities/*.ts"],
-  migrations: ["database/migrations/*.ts"],
+  entities: [join(__dirname, "database/entities/*.ts")],
+  migrations: [join(__dirname, "database/migrations/*.ts")],
   subscribers: [],
   uuidExtension: "uuid-ossp",
 });
