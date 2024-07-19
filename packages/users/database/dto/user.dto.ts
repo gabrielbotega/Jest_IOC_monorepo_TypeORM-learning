@@ -14,3 +14,12 @@ export class UserDto {
 
   public updatedAt?: Date;
 }
+
+@injectable()
+export class UserDtoFactory {
+  createUserDto(data: Partial<UserDto>): UserDto {
+    const userDto = new UserDto();
+    Object.assign(userDto, data);
+    return userDto;
+  }
+}

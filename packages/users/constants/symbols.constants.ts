@@ -14,6 +14,7 @@ export default {
     },
     Dto: {
       userDto: Symbol("userDto"),
+      userDtoFactory: Symbol("userDtoFactory"),
     },
     Adapters: {
       UserBasicInfoTransformation: Symbol("UserBasicInfoTransformation"),
