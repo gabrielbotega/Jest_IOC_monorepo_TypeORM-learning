@@ -1,9 +1,0 @@
-{
-  "name": "@trainingjest/tests",
-  "version": "1.0.0",
-  "main": "server.ts",
-  "license": "MIT",
-  "dependencies": {
-    "@trainingjest/users": "1.0.0"
-  }
-}

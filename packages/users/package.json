@@ -15,5 +15,8 @@
   },
   "dependencies": {
     "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "@babel/preset-typescript": "^7.24.7"
   }
 }
