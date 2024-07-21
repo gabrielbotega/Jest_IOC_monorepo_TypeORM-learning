@@ -8,7 +8,10 @@ import {
   IResponse,
   ResponseStatus,
 } from "@trainingjest/users/models/response.model";
-import { UserDto } from "@trainingjest/users/database/dto/user.dto";
+import {
+  UserDto,
+  UserDtoFactory,
+} from "@trainingjest/users/database/dto/user.dto";
 
 @injectable()
 export class UserService {
@@ -16,7 +19,8 @@ export class UserService {
     @inject(TYPES.v1.Dao.userDao)
     private readonly userDao: UserDao,
     @inject(TYPES.v1.Adapters.UserBasicInfoTransformation)
-    private readonly userBasicInfoTransform: UserBasicInfoTransformation
+    private readonly userBasicInfoTransform: UserBasicInfoTransformation,
+    @inject(TYPES.v1.Dto.userDtoFactory) private userFactory: UserDtoFactory
   ) {}
 
   public async getAllUsers(): Promise<IResponse<Array<IUser>>> {
@@ -49,7 +53,9 @@ export class UserService {
   }
 
   public async validateUser(userAttempt: UserDto): Promise<IResponse<IUser>> {
-    const errors = await validate(userAttempt);
+    const instantiatedDto = this.userFactory.createUserDto({ ...userAttempt });
+
+    const errors = await validate(instantiatedDto);
 
     if (errors.length > 0) {
       return {
