@@ -55,6 +55,10 @@ describe("Users", () => {
     expect(result).toBeDefined();
   });
 
+  /*
+   * I'm persisting data into my DB. Need to find a way to mock the DB
+   *but still use the DAO (end of the line)
+   */
   it("Should create a new user", async () => {
     const res = mockResponse();
     const req = mockRequest({
